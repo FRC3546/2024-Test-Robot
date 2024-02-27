@@ -50,7 +50,10 @@ public class Robot extends TimedRobot
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
 
-    SmartDashboard.putBoolean("tag area test", LimelightSubsystem.aiming);
+
+
+    
+    // SmartDashboard.putBoolean("tag area test", LimelightSubsystem.aiming);
 
     // Create a timer to disable motor brake a few seconds after disable.  This will let the robot stop
     // immediately when disabled, but then also let it be pushed more 
@@ -67,6 +70,7 @@ public class Robot extends TimedRobot
   @Override
   public void robotPeriodic()
   {
+    m_robotContainer.limelightValues();
     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic

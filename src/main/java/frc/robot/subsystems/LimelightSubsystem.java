@@ -48,4 +48,17 @@ import edu.wpi.first.networktables.NetworkTableInstance;
         // }
         // m_LimelightDriveCommand = drive_cmd;
   }
+
+  public double getLimelightY(){
+    return NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
+  }
+
+  public double getLimelightX(){
+    return NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
+  }
+
+  public boolean isLimelightXRange(){
+    double x = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
+    return (x > -20 && x < 20);
+  }
 }
