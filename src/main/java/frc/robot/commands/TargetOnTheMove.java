@@ -9,15 +9,15 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 
-public class TargetAprilTagCommand extends Command {
+public class TargetOnTheMove extends Command {
 
     private DoubleSupplier setPosition;
-    private final LimelightSubsystem limelightSubsystem;
+    private LimelightSubsystem limelightSubsystem;
     PIDController pidLoop;
     SwerveSubsystem swerveSubsystem;
 
     DoubleSupplier xTranslation;
-    DoubleSupploer yTranslation;
+    DoubleSupplier yTranslation;
     
 
   /**
@@ -25,7 +25,7 @@ public class TargetAprilTagCommand extends Command {
    *
    * @param LimelightSubsystem The subsystem used by this command.
    */
-  public TargetAprilTagCommand(LimelightSubsystem limelightSubsystem, SwerveSubsystem swerveSubsystem, DoubleSupplier xTranslation, DoubleSupplier yTranslation, DoubleSupplier setPosition) {
+  public TargetOnTheMove(LimelightSubsystem limelightSubsystem, SwerveSubsystem swerveSubsystem, DoubleSupplier xTranslation, DoubleSupplier yTranslation, DoubleSupplier setPosition) {
 
     this.xTranslation = xTranslation;
     this.yTranslation = yTranslation;
@@ -48,7 +48,9 @@ public class TargetAprilTagCommand extends Command {
   @Override
   public void execute() {
 
-    swerveSubsystem.driveFieldOriented(new ChassisSpeeds(xTranslation.getAsDouble(), yTranslation.getAsDouble(), pidLoop.calculate(limelightSubsystem.getLimelightX())));
+    System.out.println(xTranslation.getAsDouble() + " " + yTranslation.getAsDouble() + " " + setPosition.getAsDouble());
+    swerveSubsystem.driveFieldOrientedMaxVelocity(xTranslation.getAsDouble(), yTranslation.getAsDouble(), pidLoop.calculate(limelightSubsystem.getLimelightX()));
+    // swerveSubsystem.driveCommand(xTranslation, yTranslation, () -> 0);
 
   }
   
@@ -56,7 +58,8 @@ public class TargetAprilTagCommand extends Command {
 
   @Override 
   public void end(boolean interrupted) {
-    swerveSubsystem.driveFieldOriented(new ChassisSpeeds(0,0,0));
+    System.out.println("command ended");
+    swerveSubsystem.driveCommand(() -> 0, () -> 0, () -> 0);
   }
 
   @Override

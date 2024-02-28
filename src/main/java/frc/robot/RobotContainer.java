@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.RotateToAprilTagCommand;
+import frc.robot.commands.TargetOnTheMove;
 import frc.robot.commands.drivebase.AbsoluteDriveAdv;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
@@ -106,7 +107,8 @@ public class RobotContainer
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
 
     // new JoystickButton(driverXbox, 1).onTrue((new InstantCommand(drivebase::zeroGyro)));
-    new JoystickButton(driverXbox, 2).toggleOnTrue(new RotateToAprilTagCommand(limelightSubsystem, drivebase, () -> 0));
+    // new JoystickButton(driverXbox, 2).toggleOnTrue(new RotateToAprilTagCommand(limelightSubsystem, drivebase, () -> 0));
+    new JoystickButton(driverXbox, 2).toggleOnTrue(new TargetOnTheMove(limelightSubsystem, drivebase, () -> -driverXbox.getLeftY(), () -> -driverXbox.getLeftX(), () -> 0));
 
     new JoystickButton(driverXbox, 3).onTrue(new InstantCommand(drivebase::addFakeVisionReading));
 //    new JoystickButton(driverXbox, 3).whileTrue(new RepeatCommand(new InstantCommand(drivebase::lock, drivebase)));
